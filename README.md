@@ -35,7 +35,7 @@ prepared according to those dimensions. Both DRC and LVS was verified.
 ### Full adder
 We first sketched the schematic of the full adder. The design required the use of inverter design from previous lab. The layout was then prepared according to the previously provided dimensions. Both DRC and LVS was verified.
 
-<img src="Images/FulladdLay.png" width="600" >
+<img src="Images/FulladdLay.PNG" width="600" >
 ---
 
 ### 1-Bit ALU
@@ -80,3 +80,6 @@ The PAD frame of 900X900 was provided. The design was placed inside this frame a
 
 
 <img src="Images/PADframe.png" width="600" >
+
+------
+The HSPICE codes were used to simulate the design.
