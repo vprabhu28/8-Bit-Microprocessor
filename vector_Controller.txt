@@ -1,0 +1,194 @@
+radix 1 1 1111 1 1 1 1 1 1 1 1 11 1111
+vname CLK RST Opcode[3:0] Z C CLR LoadIR IncPC LoadPC LoadReg LoadAcc SelAcc[1:0] SelALU[3:0]
+IO I I IIII I I O O O O O O OO OOOO
+TUNIT ns
+PERIOD 100
+VIH 5.0
+VOH 4.5
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; start of vector data section
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;0. RESET = 1
+0 1 0000 0 0  0 u u u u u uu uuuu    ;SR  
+
+;1. LD ACC IMM(0100) /* 4 */
+0 0 1101 0 0  0 0 0 0 0 0 00 0000    ;S0  
+1 0 1101 0 0  u u u u u u uu uuuu
+0 0 1101 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 1101 0 0  u u u u u u uu uuuu 
+0 0 1101 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 1101 0 0  u u u u u u uu uuuu    
+
+;2. MOV REG01 ACC /*R1 = 4*/
+0 0 0101 0 0  1 0 0 0 0 0 11 0010    ;S0  
+1 0 0101 0 0  u u u u u u uu uuuu 
+0 0 0101 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 0101 0 0  u u u u u u uu uuuu
+0 0 0101 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 0101 0 0  u u u u u u uu uuuu
+
+;3. LD ACC IMM(1010) /* 10 */
+0 0 1101 0 0  1 0 0 0 0 0 00 0010    ;S0  
+1 0 1101 0 0  u u u u u u uu uuuu
+0 0 1101 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 1101 0 0  u u u u u u uu uuuu 
+0 0 1101 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 1101 0 0  u u u u u u uu uuuu    
+
+;4. MOV REG02 ACC /* R2 = 10*/
+0 0 0101 0 0  1 0 0 0 0 0 11 0010    ;S0  
+1 0 0101 0 0  u u u u u u uu uuuu 
+0 0 0101 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 0101 0 0  u u u u u u uu uuuu
+0 0 0101 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 0101 0 0  u u u u u u uu uuuu
+
+;5. LD ACC IMM(0010) /* 2 */
+0 0 1101 0 0  1 0 0 0 1 0 00 0010    ;S0  
+1 0 1101 0 0  u u u u u u uu uuuu
+0 0 1101 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 1101 0 0  u u u u u u uu uuuu 
+0 0 1101 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 1101 0 0  u u u u u u uu uuuu    
+
+;6. MOV REG03 ACC /* R3 = 2 */ 
+0 0 0101 0 0  1 0 0 0 0 1 11 0010    ;S0  
+1 0 0101 0 0  u u u u u u uu uuuu 
+0 0 0101 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 0101 0 0  u u u u u u uu uuuu
+0 0 0101 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 0101 0 0  u u u u u u uu uuuu
+
+;7. SUB REG01 ACC /* ACC = ACC - REG01 */
+0 0 0010 0 0  1 0 0 0 1 0 00 0010    ;S0  
+1 0 0010 0 0  u u u u u u uu uuuu 
+0 0 0010 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 0010 0 0  u u u u u u uu uuuu
+0 0 0010 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 0010 0 0  u u u u u u uu uuuu
+
+;8. JC REG02 /*Check if PCOUT is 1010*/  ---- PC = 7      Jump to Reg Value if Carry
+0 0 1000 0 1  1 0 0 0 0 1 00 1100    ;S0  
+1 0 1000 0 1  u u u u u u uu uuuu 
+0 0 1000 0 1  1 1 0 0 0 0 00 0010    ;S1  
+1 0 1000 0 1  u u u u u u uu uuuu
+0 0 1000 0 1  1 0 1 0 0 0 00 0010    ;S2  
+1 0 1000 0 1  u u u u u u uu uuuu
+
+;9. LD ACC IMM(1001) ---- PC 10 (PC jumped 7 to 10)
+0 0 1101 0 0  1 0 0 1 0 0 00 0010    ;S0  
+1 0 1101 0 0  u u u u u u uu uuuu
+0 0 1101 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 1101 0 0  u u u u u u uu uuuu 
+0 0 1101 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 1101 0 0  u u u u u u uu uuuu    
+
+;10. SHL ACC ---- PC = 11
+0 0 1011 0 0  1 0 0 0 0 1 11 0010    ;S0  
+1 0 1011 0 0  u u u u u u uu uuuu
+0 0 1011 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 1011 0 0  u u u u u u uu uuuu 
+0 0 1011 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 1011 0 0  u u u u u u uu uuuu 
+
+;11. SHL ACC ---- PC = 12
+0 0 1011 0 0  1 0 0 0 0 1 00 0001    ;S0  
+1 0 1011 0 0  u u u u u u uu uuuu
+0 0 1011 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 1011 0 0  u u u u u u uu uuuu 
+0 0 1011 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 1011 0 0  u u u u u u uu uuuu 
+
+;12. SHL ACC 
+0 0 1011 0 0  1 0 0 0 0 1 00 0001    ;S0  
+1 0 1011 0 0  u u u u u u uu uuuu
+0 0 1011 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 1011 0 0  u u u u u u uu uuuu 
+0 0 1011 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 1011 0 0  u u u u u u uu uuuu 
+
+;13. SHL ACC
+0 0 1011 0 0  1 0 0 0 0 1 00 0001    ;S0  
+1 0 1011 0 0  u u u u u u uu uuuu
+0 0 1011 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 1011 0 0  u u u u u u uu uuuu 
+0 0 1011 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 1011 0 0  u u u u u u uu uuuu 
+
+;14. MOV REG00 ACC /* R0 = 10010000 */
+0 0 0101 0 0  1 0 0 0 0 1 00 0001    ;S0  
+1 0 0101 0 0  u u u u u u uu uuuu 
+0 0 0101 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 0101 0 0  u u u u u u uu uuuu
+0 0 0101 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 0101 0 0  u u u u u u uu uuuu
+
+;15. MOV ACC REG03 /* ACC = 2 */
+0 0 0100 0 0  1 0 0 0 1 0 00 0010    ;S0  
+1 0 0100 0 0  u u u u u u uu uuuu 
+0 0 0100 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 0100 0 0  u u u u u u uu uuuu
+0 0 0100 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 0100 0 0  u u u u u u uu uuuu
+
+;16. ADD ACC REG03 /* ACC = 4 */
+0 0 0001 0 0  1 0 0 0 0 1 10 0010    ;S0  
+1 0 0001 0 0  u u u u u u uu uuuu 
+0 0 0001 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 0001 0 0  u u u u u u uu uuuu
+0 0 0001 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 0001 0 0  u u u u u u uu uuuu
+
+
+;17. SUB REG01 ACC /* ACC = ACC - R1 = 4 - 4 */
+0 0 0010 0 0  1 0 0 0 0 1 00 1000    ;S0  
+1 0 0010 0 0  u u u u u u uu uuuu 
+0 0 0010 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 0010 0 0  u u u u u u uu uuuu
+0 0 0010 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 0101 0 0  u u u u u u uu uuuu
+
+;18. JZ IMM(0101) /* check if PCOUT is 0101 */ ---- PC = 19
+0 0 0111 1 0  1 0 0 0 1 0 00 0010    ;S0  
+1 0 0111 1 0  u u u u u u uu uuuu
+0 0 0111 1 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 0111 1 0  u u u u u u uu uuuu
+0 0 0111 1 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 0111 1 0  u u u u u u uu uuuu
+
+;19. LD ACC IMM(1101) /* ACC = 1101 */ ---- PC = 5 (PC jumped from 19 to 5)
+0 0 1101 0 0  1 0 0 1 0 0 00 0010    ;S0  
+1 0 1101 0 0  u u u u u u uu uuuu
+0 0 1101 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 1101 0 0  u u u u u u uu uuuu 
+0 0 1101 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 1101 0 0  u u u u u u uu uuuu    
+
+;20. ADD REG00 ACC /* 10011101 */ ---- PC = 6
+0 0 0001 0 0  1 0 0 0 0 1 11 0010    ;S0  
+1 0 0001 0 0  u u u u u u uu uuuu 
+0 0 0001 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 0001 0 0  u u u u u u uu uuuu 
+0 0 0001 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 0001 0 0  u u u u u u uu uuuu 
+
+;21. MOV REG00 ACC
+0 0 0101 0 0  1 0 0 0 0 1 00 1000    ;S0  
+1 0 0101 0 0  u u u u u u uu uuuu 
+0 0 0101 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 0101 0 0  u u u u u u uu uuuu
+0 0 0101 0 0  1 0 1 0 0 0 00 0010    ;S2  
+1 0 0101 0 0  u u u u u u uu uuuu
+
+;22. Halt
+0 0 1111 0 0  1 0 0 0 1 0 00 0010    ;S0  
+1 0 1111 0 0  u u u u u u uu uuuu 
+0 0 1111 0 0  1 1 0 0 0 0 00 0010    ;S1  
+1 0 1111 0 0  u u u u u u uu uuuu
+0 0 1111 0 0  1 0 0 0 0 0 00 0010    ;S2  
+1 0 1111 0 0  u u u u u u uu uuuu
+0 0 1111 0 0  1 0 0 0 0 0 00 0010    ;    
+1 0 1111 0 0  u u u u u u uu uuuu
+

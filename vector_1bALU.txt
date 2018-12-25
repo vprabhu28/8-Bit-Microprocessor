@@ -1,0 +1,38 @@
+Vector file of 1 bit alu (TA)
+radix 1 1 1 1 1 11 11 1 1
+vname Ai Bi Cin_BinBar Ai_next Ai_prev Sel[1:0] Shift[1:0] Resulti Cout_BoutBar
+IO I I I I I II II O O
+
+TUNIT ns
+PERIOD 100
+VIH 5.0
+VOH 4.5
+;time 0
+0 0 0 0 0 10 uu u u
+
+;time 1, do addition
+1 1 1 u u 10 uu 0 0
+
+;time 2, do addition
+0 1 0 u u 10 uu 1 1
+
+;time 3, do subtraction
+0 1 1 u u 11 uu 1 0
+
+;time 4, do nor2
+1 0 u u u 01 uu 1 0
+
+;time 5, do shift right
+1 u u 0 1 00 11 0 u
+
+;time 6, do shift left
+1 u u 1 0 00 01 0 u
+
+;time 7, do load
+1 u u 0 0 00 10 0 u
+
+;time 8, do reset
+1 u u 0 0 00 00 1 u
+
+;time 9, don't care input
+u u u u u uu uu 0 u
