@@ -1,5 +1,16 @@
 # 8-Bit-Microprocessor
 
+---
+
+# Requirements
+
+<img src="Images/Block.PNG" width="600" >
+<img src="Images/Req.PNG" width="600" >
+
+---
+
+# Approach
+
 This project required us to design the system using several components designed during the pre-lab sessions.
 This included design of:
 1. Inverter
