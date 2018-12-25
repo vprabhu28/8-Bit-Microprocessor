@@ -35,6 +35,7 @@ prepared according to those dimensions. Both DRC and LVS was verified.
 ### Full adder
 We first sketched the schematic of the full adder. The design required the use of inverter design from previous lab. The layout was then prepared according to the previously provided dimensions. Both DRC and LVS was verified.
 
+<img src="Images/FulladdLay.png" width="600" >
 ---
 
 ### 1-Bit ALU
@@ -72,3 +73,10 @@ The CPU design required us to basically place and route all the designs of previ
 <img src="Images/CPUschm.png" width="600" >
 <img src="Images/CPUlay.png" width="600" >
 <img src="Images/CPUlvs.png" width="600" >
+
+------
+## PAD frame
+The PAD frame of 900X900 was provided. The design was placed inside this frame and connections were made using metals 2 and 3. The empty spaces were then filled with poly. A GDS2 file was generated and sent for fabrication.
+
+
+<img src="Images/PADframe.png" width="600" >
